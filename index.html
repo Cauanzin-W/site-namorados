@@ -1,0 +1,126 @@
+<!-- CÓDIGO DO ARQUIVO index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dia dos Namorados - Cauan ❤️ Gabrielle</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #ffd6e8);
+      color: #d6336c;
+      text-align: center;
+    }
+    header {
+      padding: 40px 20px 20px;
+      font-size: 32px;
+      background-color: #ffc0cb;
+      color: #fff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header span {
+      font-size: 36px;
+    }
+    .contador {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+    .carousel {
+      margin: 40px auto;
+      max-width: 300px;
+      position: relative;
+    }
+    .carousel img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .carousel button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #ff80ab;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .carousel .prev { left: -40px; }
+    .carousel .next { right: -40px; }
+    .surpresa-btn {
+      margin: 30px;
+      padding: 15px 25px;
+      font-size: 18px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .surpresa-btn:hover {
+      transform: scale(1.05);
+    }
+    audio {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    ❤️ Cauan & Gabrielle ❤️
+  </header>
+
+  <div class="contador">
+    <p><strong>O dia que minha vida melhorou</strong></p>
+    <p id="tempo-contado"></p>
+  </div>
+
+  <div class="carousel">
+    <button class="prev" onclick="mudarImagem(-1)">⟵</button>
+    <img id="imagem-carrossel" src="https://via.placeholder.com/300x200.png?text=Foto+1" alt="Carrossel de Fotos">
+    <button class="next" onclick="mudarImagem(1)">⟶</button>
+  </div>
+
+  <button class="surpresa-btn" onclick="window.open('surpresa.html')">Surpresa</button>
+
+  <audio controls autoplay loop>
+    <source src="sua-musica.mp3" type="audio/mpeg">
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
+
+  <script>
+    const inicio = new Date('2020-02-22T00:00:00');
+    function atualizarContador() {
+      const agora = new Date();
+      const diff = agora - inicio;
+
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diff / (1000 * 60)) % 60);
+      const segundos = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("tempo-contado").textContent = `${dias} dias, ${horas}h, ${minutos}m, ${segundos}s`;
+    }
+    setInterval(atualizarContador, 1000);
+
+    let imagens = [
+      'https://via.placeholder.com/300x200.png?text=Foto+1',
+      'https://via.placeholder.com/300x200.png?text=Foto+2',
+      'https://via.placeholder.com/300x200.png?text=Foto+3'
+    ];
+    let indice = 0;
+    function mudarImagem(direcao) {
+      indice += direcao;
+      if (indice < 0) indice = imagens.length - 1;
+      if (indice >= imagens.length) indice = 0;
+      document.getElementById("imagem-carrossel").src = imagens[indice];
+    }
+    atualizarContador();
+  </script>
+</body>
+</html>
