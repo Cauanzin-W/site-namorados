@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Feliz Dia dos Namorados</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
@@ -17,6 +17,12 @@
     }
     h1 {
       color: #d63384;
+    }
+    #contador {
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #9c27b0;
+      margin-top: 5px;
     }
     .carousel {
       display: flex;
@@ -32,7 +38,7 @@
       transition: transform 1s ease;
       object-fit: cover;
       border-radius: 12px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     }
     audio {
       margin: 20px 0;
@@ -48,7 +54,7 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
@@ -56,23 +62,25 @@
   <header>
     <h1>💖 Cauan & Gabrielle 💖</h1>
     <p>O dia que minha vida melhorou: 22/02/2020</p>
+    <div id="contador"></div>
   </header>
 
   <div class="carousel" id="carousel">
-    <img src="https://raw.githubusercontent.com/Cauanzin-W/imagens-namorados/main/foto1.jpg" alt="Foto 1">
-    <img src="https://raw.githubusercontent.com/Cauanzin-W/imagens-namorados/main/foto2.jpg" alt="Foto 2">
-    <img src="https://raw.githubusercontent.com/Cauanzin-W/imagens-namorados/main/foto3.jpg" alt="Foto 3">
-    <img src="https://raw.githubusercontent.com/Cauanzin-W/imagens-namorados/main/foto4.jpg" alt="Foto 4">
+    <img src="https://i.imgur.com/mNm3iTa.jpg" alt="Foto 1" />
+    <img src="https://i.imgur.com/PsvK318.jpg" alt="Foto 2" />
+    <img src="https://i.imgur.com/32BLy4M.jpg" alt="Foto 3" />
+    <img src="https://i.imgur.com/VbbKhbT.jpg" alt="Foto 4" />
   </div>
 
   <audio autoplay loop>
-    <source src="assets/nossa-musica.mp3" type="audio/mpeg">
+    <source src="assets/nossa-musica.mp3" type="audio/mpeg" />
     Seu navegador não suporta áudio.
   </audio>
 
   <a href="surpresa.html" class="btn-surpresa">🎁 Surpresa</a>
 
   <script>
+    // Carousel automático
     const carousel = document.getElementById('carousel');
     const imgs = carousel.getElementsByTagName('img');
     let index = 0;
@@ -80,6 +88,55 @@
       index = (index + 1) % imgs.length;
       carousel.style.transform = `translateX(-${index * 100}%)`;
     }, 3000);
+
+    // Função para calcular diferença de tempo desde 22/02/2020
+    function atualizarContador() {
+      const inicio = new Date(2020, 1, 22); // mês é 0-based (1 = fevereiro)
+      const agora = new Date();
+
+      let diff = agora - inicio;
+
+      // Calcular anos, meses, dias, horas, minutos e segundos
+      // Usar lógica simples aproximada para meses e anos:
+      let anos = agora.getFullYear() - inicio.getFullYear();
+      let meses = agora.getMonth() - inicio.getMonth();
+      let dias = agora.getDate() - inicio.getDate();
+      let horas = agora.getHours() - inicio.getHours();
+      let minutos = agora.getMinutes() - inicio.getMinutes();
+      let segundos = agora.getSeconds() - inicio.getSeconds();
+
+      if (segundos < 0) {
+        segundos += 60;
+        minutos--;
+      }
+      if (minutos < 0) {
+        minutos += 60;
+        horas--;
+      }
+      if (horas < 0) {
+        horas += 24;
+        dias--;
+      }
+      if (dias < 0) {
+        // Ajuste dos dias no mês anterior
+        const mesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+        dias += mesAnterior;
+        meses--;
+      }
+      if (meses < 0) {
+        meses += 12;
+        anos--;
+      }
+
+      // Montar texto
+      const texto = `${anos} anos, ${meses} meses, ${dias} dias, ${horas}h ${minutos}m ${segundos}s`;
+
+      document.getElementById('contador').textContent = texto;
+    }
+
+    // Atualiza a cada segundo
+    setInterval(atualizarContador, 1000);
+    atualizarContador(); // inicializa na hora que abrir a página
   </script>
 </body>
 </html>
