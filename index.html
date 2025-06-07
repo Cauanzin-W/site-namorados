@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Feliz Dia dos Namorados</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
@@ -18,24 +18,31 @@
     h1 {
       color: #d63384;
     }
-    .carousel {
-      display: flex;
-      overflow: hidden;
-      max-width: 100%;
+    .carousel-container {
+      width: 90%;
+      max-width: 600px;
       height: 400px;
       margin: 20px auto;
-      position: relative;
-    }
-    .carousel img {
-      width: 100%;
-      flex-shrink: 0;
-      transition: transform 1s ease;
-      object-fit: cover;
+      overflow: hidden;
       border-radius: 12px;
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 1s ease;
+      height: 100%;
+    }
+    .carousel-track img {
+      width: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+      height: 100%;
+      border-radius: 12px;
     }
     audio {
       margin: 20px 0;
+      outline: none;
     }
     .btn-surpresa {
       background: #e91e63;
@@ -58,27 +65,30 @@
     <p>O dia que minha vida melhorou: 22/02/2020</p>
   </header>
 
-  <div class="carousel" id="carousel">
-    <img src="assets/foto1.jpg" alt="Foto 1">
-    <img src="assets/foto2.jpg" alt="Foto 2">
-    <img src="assets/foto3.jpg" alt="Foto 3">
-    <img src="assets/foto4.jpg" alt="Foto 4">
+  <div class="carousel-container">
+    <div class="carousel-track" id="carousel-track">
+      <img src="assets/foto1.jpg" alt="Foto 1" />
+      <img src="assets/foto2.jpg" alt="Foto 2" />
+      <img src="assets/foto3.jpg" alt="Foto 3" />
+      <img src="assets/foto4.jpg" alt="Foto 4" />
+    </div>
   </div>
 
-  <audio autoplay loop>
-    <source src="assets/nossa-musica.mp3" type="audio/mpeg">
+  <audio controls autoplay loop>
+    <source src="assets/nossa-musica.mp3" type="audio/mpeg" />
     Seu navegador não suporta áudio.
   </audio>
 
   <a href="surpresa.html" class="btn-surpresa">🎁 Surpresa</a>
 
   <script>
-    const carousel = document.getElementById('carousel');
-    const imgs = carousel.getElementsByTagName('img');
+    const track = document.getElementById('carousel-track');
+    const images = track.getElementsByTagName('img');
     let index = 0;
+
     setInterval(() => {
-      index = (index + 1) % imgs.length;
-      carousel.style.transform = `translateX(-${index * 100}%)`;
+      index = (index + 1) % images.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
     }, 3000);
   </script>
 </body>
