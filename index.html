@@ -1,126 +1,85 @@
-<!-- CÓDIGO DO ARQUIVO index.html -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <title>Feliz Dia dos Namorados</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dia dos Namorados - Cauan ❤️ Gabrielle</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(to bottom, #ffe6f0, #ffd6e8);
-      color: #d6336c;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
       text-align: center;
     }
     header {
-      padding: 40px 20px 20px;
-      font-size: 32px;
-      background-color: #ffc0cb;
-      color: #fff;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background: #f8e1ec;
+      padding: 20px;
     }
-    header span {
-      font-size: 36px;
-    }
-    .contador {
-      margin-top: 20px;
-      font-size: 24px;
+    h1 {
+      color: #d63384;
     }
     .carousel {
-      margin: 40px auto;
-      max-width: 300px;
+      display: flex;
+      overflow: hidden;
+      max-width: 100%;
+      height: 400px;
+      margin: 20px auto;
       position: relative;
     }
     .carousel img {
       width: 100%;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .carousel button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #ff80ab;
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 50%;
-    }
-    .carousel .prev { left: -40px; }
-    .carousel .next { right: -40px; }
-    .surpresa-btn {
-      margin: 30px;
-      padding: 15px 25px;
-      font-size: 18px;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .surpresa-btn:hover {
-      transform: scale(1.05);
+      flex-shrink: 0;
+      transition: transform 1s ease;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
     audio {
-      margin-top: 20px;
+      margin: 20px 0;
+    }
+    .btn-surpresa {
+      background: #e91e63;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2em;
+      margin: 30px auto;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
   <header>
-    ❤️ Cauan & Gabrielle ❤️
+    <h1>💖 Cauan & Gabrielle 💖</h1>
+    <p>O dia que minha vida melhorou: 22/02/2020</p>
   </header>
 
-  <div class="contador">
-    <p><strong>O dia que minha vida melhorou</strong></p>
-    <p id="tempo-contado"></p>
+  <div class="carousel" id="carousel">
+    <img src="assets/foto1.jpg" alt="Foto 1">
+    <img src="assets/foto2.jpg" alt="Foto 2">
+    <img src="assets/foto3.jpg" alt="Foto 3">
+    <img src="assets/foto4.jpg" alt="Foto 4">
   </div>
 
-  <div class="carousel">
-    <button class="prev" onclick="mudarImagem(-1)">⟵</button>
-    <img id="imagem-carrossel" src="https://via.placeholder.com/300x200.png?text=Foto+1" alt="Carrossel de Fotos">
-    <button class="next" onclick="mudarImagem(1)">⟶</button>
-  </div>
-
-  <button class="surpresa-btn" onclick="window.open('surpresa.html')">Surpresa</button>
-
-  <audio controls autoplay loop>
-    <source src="sua-musica.mp3" type="audio/mpeg">
-    Seu navegador não suporta o elemento de áudio.
+  <audio autoplay loop>
+    <source src="assets/nossa-musica.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
   </audio>
 
+  <a href="surpresa.html" class="btn-surpresa">🎁 Surpresa</a>
+
   <script>
-    const inicio = new Date('2020-02-22T00:00:00');
-    function atualizarContador() {
-      const agora = new Date();
-      const diff = agora - inicio;
-
-      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutos = Math.floor((diff / (1000 * 60)) % 60);
-      const segundos = Math.floor((diff / 1000) % 60);
-
-      document.getElementById("tempo-contado").textContent = `${dias} dias, ${horas}h, ${minutos}m, ${segundos}s`;
-    }
-    setInterval(atualizarContador, 1000);
-
-    let imagens = [
-      'https://via.placeholder.com/300x200.png?text=Foto+1',
-      'https://via.placeholder.com/300x200.png?text=Foto+2',
-      'https://via.placeholder.com/300x200.png?text=Foto+3'
-    ];
-    let indice = 0;
-    function mudarImagem(direcao) {
-      indice += direcao;
-      if (indice < 0) indice = imagens.length - 1;
-      if (indice >= imagens.length) indice = 0;
-      document.getElementById("imagem-carrossel").src = imagens[indice];
-    }
-    atualizarContador();
+    const carousel = document.getElementById('carousel');
+    const imgs = carousel.getElementsByTagName('img');
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % imgs.length;
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+    }, 3000);
   </script>
 </body>
 </html>
